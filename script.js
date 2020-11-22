@@ -3,7 +3,7 @@ const grid = document.querySelector(".grid");
 const scoreDisplay = document.getElementById("score");
 let squares = [];
 
-//28 * 28 = 784 grid
+// 784 space grid - 28 * 28
 // 0 - pac-dots
 // 1 - wall
 // 2 - ghost-lair
@@ -63,5 +63,29 @@ createBoard();
 
 //starting position of pacman
 let pacmanCurrentIndex = 490;
-
 squares[pacmanCurrentIndex].classList.add("pacman");
+
+function control(e) {
+  squares[pacmanCurrentIndex].classList.remove("pacman");
+  switch (e.keyCode) {
+    // move down
+    case 40:
+      if (pacmanCurrentIndex + width < width * width)
+        pacmanCurrentIndex += width;
+      break;
+    // move up
+    case 39:
+      if (pacmanCurrentIndex % width < width - 1) pacmanCurrentIndex += 1;
+      break;
+    // move right
+    case 38:
+      if (pacmanCurrentIndex - width >= 0) pacmanCurrentIndex -= width;
+      break;
+    // move left
+    case 37:
+      if (pacmanCurrentIndex % width !== 0) pacmanCurrentIndex -= 1;
+      break;
+  }
+  squares[pacmanCurrentIndex].classList.add("pacman");
+}
+document.addEventListener("keyup", control);
