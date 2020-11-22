@@ -70,20 +70,35 @@ function control(e) {
   switch (e.keyCode) {
     // move down
     case 40:
-      if (pacmanCurrentIndex + width < width * width)
+      if (
+        !squares[pacmanCurrentIndex + width].classList.contains("wall") &&
+        pacmanCurrentIndex + width < width * width
+      )
         pacmanCurrentIndex += width;
       break;
-    // move up
-    case 39:
-      if (pacmanCurrentIndex % width < width - 1) pacmanCurrentIndex += 1;
-      break;
     // move right
+    case 39:
+      if (
+        !squares[pacmanCurrentIndex + 1].classList.contains("wall") &&
+        pacmanCurrentIndex % width < width - 1
+      )
+        pacmanCurrentIndex += 1;
+      break;
+    // move up
     case 38:
-      if (pacmanCurrentIndex - width >= 0) pacmanCurrentIndex -= width;
+      if (
+        !squares[pacmanCurrentIndex - width].classList.contains("wall") &&
+        pacmanCurrentIndex - width >= 0
+      )
+        pacmanCurrentIndex -= width;
       break;
     // move left
     case 37:
-      if (pacmanCurrentIndex % width !== 0) pacmanCurrentIndex -= 1;
+      if (
+        !squares[pacmanCurrentIndex - 1].classList.contains("wall") &&
+        pacmanCurrentIndex % width !== 0
+      )
+        pacmanCurrentIndex -= 1;
       break;
   }
   squares[pacmanCurrentIndex].classList.add("pacman");
