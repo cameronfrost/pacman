@@ -53,6 +53,8 @@ function createBoard() {
       squares[i].classList.add("pac-dot");
     } else if (layout[i] === 1) {
       squares[i].classList.add("wall");
+    } else if (layout[i] === 2) {
+      squares[i].classList.add("ghost-lair");
     } else if (layout[i] === 3) {
       squares[i].classList.add("power-pellet");
     }
@@ -71,6 +73,7 @@ function control(e) {
     // move down
     case 40:
       if (
+        !squares[pacmanCurrentIndex + width].classList.contains("ghost-lair") &&
         !squares[pacmanCurrentIndex + width].classList.contains("wall") &&
         pacmanCurrentIndex + width < width * width
       )
@@ -79,6 +82,7 @@ function control(e) {
     // move right
     case 39:
       if (
+        !squares[pacmanCurrentIndex + 1].classList.contains("ghost-lair") &&
         !squares[pacmanCurrentIndex + 1].classList.contains("wall") &&
         pacmanCurrentIndex % width < width - 1
       )
@@ -87,6 +91,7 @@ function control(e) {
     // move up
     case 38:
       if (
+        !squares[pacmanCurrentIndex - width].classList.contains("ghost-lair") &&
         !squares[pacmanCurrentIndex - width].classList.contains("wall") &&
         pacmanCurrentIndex - width >= 0
       )
@@ -95,6 +100,7 @@ function control(e) {
     // move left
     case 37:
       if (
+        !squares[pacmanCurrentIndex - 1].classList.contains("ghost-lair") &&
         !squares[pacmanCurrentIndex - 1].classList.contains("wall") &&
         pacmanCurrentIndex % width !== 0
       )
