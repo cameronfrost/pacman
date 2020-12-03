@@ -207,5 +207,18 @@ function moveGhost(ghost) {
       score += 100;
       squares[ghost.currentIndex].classList.add(ghost.className, "ghost");
     }
+    checkForGameOver();
   }, ghost.speed);
+}
+
+// check for game over
+function checkForGameOver() {
+  if (
+    squares[pacmanCurrentIndex].classList.contains("ghost") &&
+    !squares[pacmanCurrentIndex].classList.contains("scared-ghost")
+  ) {
+    ghosts.forEach(ghost => clearInterval(ghost.timerID));
+    document.removeEventListener("keyup", control);
+    scoreDisplay.innerHTML = "You Lose";
+  }
 }
