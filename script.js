@@ -117,6 +117,8 @@ function control(e) {
   squares[pacmanCurrentIndex].classList.add("pacman");
   pacDotEaten();
   powerPelletEaten();
+  checkForWin();
+  checkForGameOver();
 }
 document.addEventListener("keyup", control);
 
@@ -171,7 +173,6 @@ ghosts.forEach(ghost => moveGhost(ghost));
 function moveGhost(ghost) {
   const directions = [-1, +1, -width, +width];
   let direction = directions[Math.floor(Math.random() * directions.length)];
-  console.log(direction);
 
   ghost.timerId = setInterval(function () {
     if (
@@ -220,5 +221,14 @@ function checkForGameOver() {
     ghosts.forEach(ghost => clearInterval(ghost.timerID));
     document.removeEventListener("keyup", control);
     scoreDisplay.innerHTML = "You Lose";
+  }
+}
+
+// check for win
+function checkForWin() {
+  if (score === 274) {
+    ghosts.forEach(ghost => clearInterval(ghost.timerID));
+    document.removeEventListener("keyup", control);
+    scoreDisplay.innerHTML = "You Win";
   }
 }
